@@ -1,21 +1,25 @@
 $colorRed: #840000;
-$colorBlue: #7a9fce;
-$radius: 0.3em;
+$colorBlue: #3474e1;
 
 h3 {
-	color: $colorRed;
+  color: $colorRed;
 }
 
 ion-input{
-	padding: 0em 0.3em;
-	border-width: 0.1em;
-	border-radius: $radius;
 	border-color: $colorRed;
 	border-style: solid;
-	font-size: 1.7em;
+	border-width: 0.1em;
+	padding: 0em 0.3em;
 	color: $colorBlue;
+	font-size: 1.2em;
 }
 
-ion-label {
+button {
+	color: $colorRed;
+	font-size: 1.2em;
+}
+
+ion-label{
+	color: $colorRed;
   font-size: 2em;
 }
