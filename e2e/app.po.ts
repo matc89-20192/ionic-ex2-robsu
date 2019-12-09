@@ -1,4 +1,4 @@
-import { browser, by, element, protractor } from 'protractor';
+import { browser, by, element, $ } from 'protractor';
 
 export class Page {
 
@@ -10,44 +10,26 @@ export class Page {
     return browser.getTitle();
   }
 
+  getMensagem() {
+    return element(by.id('labelMensagem')).getText();
+  }
+
+  async hasElements() {
+    let a = await $('#labelMensagem').isPresent();
+    let b = await $('#editNome').isPresent();
+    let c = await $('#btnCumprimentar').isPresent();
+    return a && b && c;
+  }
+
+  digitaNome(nome: string) {
+    return element(by.css('#editNome .text-input')).sendKeys(nome);
+  }
+
+  cumprimenta() {
+    return element(by.id('btnCumprimentar')).click();
+  }
+
   getPageOneTitleText() {
     return element(by.tagName('page-page1')).element(by.tagName('ion-title')).element(by.css('.toolbar-title')).getText();
   }
-
-  getTexto() {
-    return element(by.id('textView')).getText();
-  }
-  getValorDoInput() {
-    return element(by.css('#editText .text-input')).getAttribute('value')
-  }
-  trocar() {
-    return element(by.id('btnTrocar')).click();
-  }
-  digitar(str: string) {
-    return browser.sleep(500)
-    .then(() => {
-      element(by.css('#editText .text-input')).sendKeys(str)
-    }).then(() => {
-      browser.sleep(200);
-    });
-  }
-  limpar() {
-    return browser.sleep(500)
-        .then(() => this.getValorDoInput())
-        .then((texto) => {
-          let array = Array(texto.length + 1).fill(protractor.Key.BACK_SPACE);
-          return element(by.css('#editText .text-input')).sendKeys(...array);
-        })
-        .then(() => browser.sleep(500));
-  }
-  confirmar() {
-    return element(by.id('btnConfirmar')).click();
-  }
-  cancelar() {
-    return element(by.id('btnCancelar')).click();
-  }
-  sleep(ms: number) {
-    return browser.sleep(ms);
-  }
-
 }

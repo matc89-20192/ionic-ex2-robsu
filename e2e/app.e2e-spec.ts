@@ -7,63 +7,39 @@ describe('App', () => {
     page = new Page();
   });
 
-  describe('página inicial', () => {
+  describe('tela inicial', () => {
     beforeEach(() => {
       page.navigateTo('/');
     });
 
-    // checa valores iniciais da 1a tela
-    // checa valores iniciais da 2a tela
-
-    it('deve cumprimentar Fulano', () => {
-      page.getTexto().then(texto => {
-        expect(texto).toEqual('Oi, Fulano!');
+    it('deve possuir todos os elementos', () => {
+      page.hasElements().then(valor => {
+        expect(valor).toBe(true);
       });
     });
 
-    it('deve trocar nome ao confirmar', () => {
-      page.trocar()
-          .then(() => page.digitar(' de Tal'))
-          .then(() => page.confirmar())
-          .then(() => page.sleep(500))
-          .then(() => page.getTexto())
-          .then((texto) => {
-            expect(texto).toEqual('Oi, Fulano de Tal!');
+    it('deve iniciar exibindo "Alô, Mundo!"', () => {
+      page.getMensagem().then(mensagem => {
+        expect(mensagem).toEqual('Alô, Mundo!');
+      });
+    });
+
+    it('não deve alterar mensagem à medida que digita', () => {
+      page.digitaNome("testando")
+          .then(() => page.getMensagem())
+          .then((mensagem) => {
+            expect(mensagem).toEqual('Alô, Mundo!');
           });
     });
 
-    it('não deve trocar nome ao cancelar', () => {
-      page.trocar()
-          .then(() => page.digitar(' de Tal'))
-          .then(() => page.cancelar())
-          .then(() => page.sleep(500))
-          .then(() => page.getTexto())
-          .then((texto) => {
-            expect(texto).toEqual('Oi, Fulano!');
+    it('deve alterar mensagem ao pressionar botão', () => {
+      page.digitaNome("testando")
+          .then(() => page.cumprimenta())
+          .then(() => page.getMensagem())
+          .then((mensagem) => {
+            expect(mensagem).toEqual('Alô, testando!');
           });
     });
 
-    it('deve dizer apenas "Oi!" quando usuário estiver em branco', () => {
-      page.trocar()
-          .then(() => page.limpar())
-          .then(() => page.confirmar())
-          .then(() => page.sleep(500))
-          .then(() => page.getTexto())
-          .then((texto) => {
-            expect(texto).toEqual('Oi!');
-          });
-    });
-
-    it('deve mostrar o nome atual na caixa de texto', () => {
-      page.trocar()
-          .then(() => page.digitar(' de Tal'))
-          .then(() => page.confirmar())
-          .then(() => page.sleep(500))
-          .then(() => page.trocar())
-          .then(() => page.getValorDoInput())
-          .then((texto) => {
-            expect(texto).toEqual('Fulano de Tal');
-          });
-    });
   })
 });

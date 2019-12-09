@@ -1,3 +1,21 @@
-page-page2 {
+$colorRed: #840000;
+$colorBlue: #7a9fce;
+$radius: 0.3em;
 
+h3 {
+	color: $colorRed;
+}
+
+ion-input{
+	padding: 0em 0.3em;
+	border-width: 0.1em;
+	border-radius: $radius;
+	border-color: $colorRed;
+	border-style: solid;
+	font-size: 1.7em;
+	color: $colorBlue;
+}
+
+ion-label {
+  font-size: 2em;
 }
